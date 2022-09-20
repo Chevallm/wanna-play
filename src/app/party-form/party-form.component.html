@@ -1,0 +1,21 @@
+<section class="party-create">
+    <h2>Create a party</h2>
+    <form [formGroup]="createPartyForm!" (submit)="create()">
+        <mat-form-field>
+            <mat-label>Game</mat-label>
+            <input type="text" autocomplete="game" formControlName="game" matInput required/>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Max slots</mat-label>
+            <input type="text" autocomplete="game" formControlName="maxSlots" matInput required/>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date" required>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button mat-stroked-button color="primary" type="submit">Create</button>
+    </form>
+</section>

@@ -1,0 +1,20 @@
+.parties {
+  padding: 1em;
+
+  &-list {
+    display: flex;
+    margin-top: 20px;
+    row-gap: 10px;
+    column-gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .party {
+    mat-card-header {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
+

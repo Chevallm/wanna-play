@@ -10,6 +10,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {environment} from '../environments/environment';
@@ -42,7 +43,8 @@ import {PartiesComponent} from './parties/parties.component';
         MatDialogModule,
         MatNativeDateModule,
         AngularFireModule.initializeApp({...environment.firebase}),
-        MatDatepickerModule
+        MatDatepickerModule,
+        MatTooltipModule
     ],
   providers: [
 

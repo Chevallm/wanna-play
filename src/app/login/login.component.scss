@@ -1,0 +1,40 @@
+.login-type {
+  display: flex;
+  justify-content: space-around;
+  padding: 1em;
+
+  > *:first-child,
+  > *:last-child {
+    flex: 1;
+    margin: 10px;
+  }
+
+  .login-email-password {
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .login-buttons {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+    }
+  }
+
+  .login-providers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      height: 50px;
+    }
+  }
+}
+
+.vertical-separator {
+  width: 1px;
+  background-color: #bdc3c7;
+  margin: 0 10px;
+}

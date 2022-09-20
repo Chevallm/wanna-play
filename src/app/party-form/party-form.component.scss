@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  background: #fff;
+  border-radius: 8px;
+  padding: 1em;
+}
+
+.party-create {
+  form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+}

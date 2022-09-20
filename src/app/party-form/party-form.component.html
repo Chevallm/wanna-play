@@ -16,6 +16,9 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <button mat-stroked-button color="primary" type="submit">Create</button>
+        <section class="actions">
+            <button mat-stroked-button color="primary" type="submit">Create</button>
+            <button mat-stroked-button type="button" (click)="close()">Close</button>
+        </section>
     </form>
 </section>

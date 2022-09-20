@@ -1,10 +1,10 @@
-import {Dialog} from '@angular/cdk/dialog';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {MatDialog} from '@angular/material/dialog';
-import firebase from 'firebase/compat/app';
-import {map, Observable, of, tap} from 'rxjs';
+import {map, Observable, of, take} from 'rxjs';
 import {Party} from '../models/party';
+import {User} from '../models/user';
+import {PartyDetailComponent} from '../party-detail/party-detail.component';
 import {PartyFormComponent} from '../party-form/party-form.component';
 import {PartyService} from '../services/party.service';
 
@@ -15,8 +15,8 @@ import {PartyService} from '../services/party.service';
 })
 export class PartiesComponent implements OnInit {
 
-    parties$: Observable<Party[]> = of([]);
-    me$: Observable<firebase.User | null> = of(null);
+    parties$: Observable<Party[] | null> = of(null);
+    me: User | null = null;
 
   constructor(
       public dialog: MatDialog,
@@ -25,26 +25,48 @@ export class PartiesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      this.me$ = this.auth.user;
-      this.parties$ = this.partyService.getParties().pipe(tap(w=> console.log(w)));
+      this.auth.authState.pipe(
+          take(1),
+          map(firebaseUser => firebaseUser ? User.fromFirebase(firebaseUser) : null)
+      ).subscribe(me => this.me = me)
+      this.parties$ = this.partyService.getParties();
   }
 
     create() {
-      const createDialog = this.dialog.open(PartyFormComponent, {width: '250px'});
+      const createDialog = this.dialog.open(PartyFormComponent, {width: '500px'});
       createDialog.afterClosed().subscribe(result => {
         if (result) {
-            this.partyService.createParty(result).subscribe(res => console.log(res));
+            this.partyService.createParty(result);
         }
       });
     }
 
     ownerOfTheParty(party: Party) {
-      return this.me$.pipe(
-          map(me => party.owner.uid === me?.uid)
-      );
+      return party.owner.uid === this.me?.uid
   }
 
     abort(party: Party) {
         this.partyService.abort(party)
+    }
+
+    join(party: Party) {
+        if (this.me) {
+            this.partyService.join(this.me, party)
+        }
+    }
+
+    leave(party: Party) {
+        if (this.me) {
+            this.partyService.leave(this.me, party)
+        }
+    }
+
+    isReserved(party: Party) {
+        return party.participants.some(participant => participant.uid === this.me?.uid)
+    }
+
+
+    view(party: Party) {
+        this.dialog.open(PartyDetailComponent, {width: '500px', data: {...party}})
     }
 }

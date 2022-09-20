@@ -9,6 +9,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserModule} from '@angular/platform-browser';
@@ -20,6 +21,7 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {PartyFormComponent} from './party-form/party-form.component';
 import {PartiesComponent} from './parties/parties.component';
+import { PartyDetailComponent } from './party-detail/party-detail.component';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import {PartiesComponent} from './parties/parties.component';
     AppComponent,
     LoginComponent,
     PartiesComponent,
-    PartyFormComponent
+    PartyFormComponent,
+    PartyDetailComponent
   ],
     imports: [
         BrowserModule,
@@ -44,7 +47,8 @@ import {PartiesComponent} from './parties/parties.component';
         MatNativeDateModule,
         AngularFireModule.initializeApp({...environment.firebase}),
         MatDatepickerModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatProgressSpinnerModule
     ],
   providers: [
 

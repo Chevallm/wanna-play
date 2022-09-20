@@ -13,6 +13,6 @@ export class Party {
     }
 
     get isFull(): boolean {
-        return this.maxSlots < this.participants.length;
+        return this.maxSlots === this.participants.length;
     }
 }

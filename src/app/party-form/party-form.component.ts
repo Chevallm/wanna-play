@@ -29,4 +29,8 @@ export class PartyFormComponent implements OnInit {
           this.dialogRef.close(this.createPartyForm.value)
       }
     }
+
+    close() {
+        this.dialogRef.close()
+    }
 }

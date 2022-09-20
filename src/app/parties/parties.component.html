@@ -1,30 +1,65 @@
 <section class="parties">
-    <ng-container *ngIf="true; else noParties">
-        <section class="parties-header">
-            <button mat-raised-button color="primary" (click)="create()">Create</button>
-        </section>
-        <section class="parties-list">
-            <ng-container *ngFor="let party of (parties$ | async)">
-                <mat-card class="party">
-                    <mat-card-header *ngIf="ownerOfTheParty(party)">
-                        <button mat-icon-button
-                                class="danger"
-                                (click)="abort(party)"
-                                matTooltip="Cancel the party"
-                                matTooltipPosition="above"><mat-icon>event_busy</mat-icon></button>
-                    </mat-card-header>
-                    <mat-card-title class="party-game">{{party.game}}</mat-card-title>
-                    <mat-card-subtitle class="party-members">Participants: {{party.participants.length}}/{{party.maxSlots}}</mat-card-subtitle>
-                    <mat-card-content class="party-date">{{party.date | date:'longDate'}}</mat-card-content>
-                    <mat-card-actions>
-                        <button mat-stroked-button color="primary" [disabled]="party.isFull">Reserve</button>
-                        <button mat-stroked-button color="accent" [disabled]="party.isFull">Info</button>
-                    </mat-card-actions>
-                </mat-card>
+    <ng-container [ngSwitch]="(parties$|async)?.length">
+        <ng-container *ngSwitchCase="null">
+            <mat-spinner></mat-spinner>
+        </ng-container>
+        <ng-container *ngSwitchCase="0">
+            <section class="parties-header">
+                <button mat-raised-button color="primary" (click)="create()">Create</button>
+            </section>
+            <ng-container>
+                No parties found.
             </ng-container>
-        </section>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+            <section class="parties-header">
+                <button mat-raised-button color="primary" (click)="create()">Create</button>
+            </section>
+            <section class="parties-list">
+                <ng-container *ngFor="let party of (parties$ | async)">
+                    <mat-card class="party">
+                        <mat-card-header *ngIf="ownerOfTheParty(party)">
+                            <button mat-icon-button
+                                    class="danger"
+                                    (click)="abort(party)"
+                                    matTooltip="Cancel the party"
+                                    matTooltipPosition="above"><mat-icon>event_busy</mat-icon></button>
+                        </mat-card-header>
+                        <mat-card-title class="party-game">{{party.game}}</mat-card-title>
+                        <mat-card-subtitle class="party-members">Participants: {{party.participants.length}}/{{party.maxSlots}}</mat-card-subtitle>
+                        <mat-card-content>
+                            <dl>
+                                <dt>Owner</dt>
+                                <dd>{{party.owner.name}}</dd>
+                                <dt>Date</dt>
+                                <dd>{{party.date | date:'longDate'}}</dd>
+                            </dl>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <ng-container *ngIf="isReserved(party); else joinRef">
+                                <button mat-stroked-button
+                                        color="primary"
+                                        (click)="leave(party)">
+                                    <mat-icon>backspace</mat-icon> Leave
+                                </button>
+                            </ng-container>
+                            <ng-template #joinRef>
+                                <button
+                                        mat-stroked-button
+                                        color="primary"
+                                        (click)="join(party)"
+                                        [disabled]="party.isFull">
+                                    <mat-icon>add</mat-icon> Join
+                                </button>
+                            </ng-template>
+                            <button mat-stroked-button
+                                    color="accent"
+                                    (click)="view(party)"
+                                    [disabled]="party.isFull">Info</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </ng-container>
+            </section>
+        </ng-container>
     </ng-container>
-    <ng-template #noParties>
-        No parties found.
-    </ng-template>
 </section>

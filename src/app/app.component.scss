@@ -1,0 +1,31 @@
+mat-toolbar {
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+main {
+  background-color: #fff;
+  margin: 5%;
+  min-height: available;
+}
+
+footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+
+  mat-toolbar {
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+@media screen and (min-width: 1044px) {
+  main {
+    margin: 10%;
+  }
+}

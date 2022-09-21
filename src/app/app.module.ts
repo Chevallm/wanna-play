@@ -19,9 +19,10 @@ import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
-import {PartyFormComponent} from './party-form/party-form.component';
+import {PartyCreateComponent} from './party-create/party-create.component';
 import {PartiesComponent} from './parties/parties.component';
 import { PartyDetailComponent } from './party-detail/party-detail.component';
+import { PartyUpdateComponent } from './party-update/party-update.component';
 
 
 @NgModule({
@@ -29,8 +30,9 @@ import { PartyDetailComponent } from './party-detail/party-detail.component';
     AppComponent,
     LoginComponent,
     PartiesComponent,
-    PartyFormComponent,
-    PartyDetailComponent
+    PartyCreateComponent,
+    PartyDetailComponent,
+    PartyUpdateComponent
   ],
     imports: [
         BrowserModule,

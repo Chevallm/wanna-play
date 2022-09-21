@@ -3,17 +3,17 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-party-form',
-  templateUrl: './party-form.component.html',
-  styleUrls: ['./party-form.component.scss']
+  selector: 'app-party-create',
+  templateUrl: './party-create.component.html',
+  styleUrls: ['./party-create.component.scss']
 })
-export class PartyFormComponent implements OnInit {
+export class PartyCreateComponent implements OnInit {
 
     createPartyForm?: FormGroup;
 
   constructor(
       private readonly fb: FormBuilder,
-      public dialogRef: MatDialogRef<PartyFormComponent>
+      public dialogRef: MatDialogRef<PartyCreateComponent>
   ) { }
 
   ngOnInit(): void {

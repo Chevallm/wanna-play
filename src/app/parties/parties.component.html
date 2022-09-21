@@ -13,7 +13,12 @@
         </ng-container>
         <ng-container *ngSwitchDefault>
             <section class="parties-header">
-                <button mat-raised-button color="primary" (click)="create()">Create</button>
+                <mat-form-field class="search" appearance="outline">
+                    <mat-label>Code Name, Small World, ...</mat-label>
+                    <input type="search" matInput>
+                    <mat-icon matPrefix>search</mat-icon>
+                </mat-form-field>
+                <button mat-raised-button color="primary" class="create-button" (click)="create()">Create</button>
             </section>
             <section class="parties-list">
                 <ng-container *ngFor="let party of (parties$ | async)">
@@ -23,10 +28,13 @@
                                     class="danger"
                                     (click)="abort(party)"
                                     matTooltip="Cancel the party"
-                                    matTooltipPosition="above"><mat-icon>event_busy</mat-icon></button>
+                                    matTooltipPosition="above">
+                                <mat-icon>event_busy</mat-icon>
+                            </button>
                         </mat-card-header>
                         <mat-card-title class="party-game">{{party.game}}</mat-card-title>
-                        <mat-card-subtitle class="party-members">Participants: {{party.participants.length}}/{{party.maxSlots}}</mat-card-subtitle>
+                        <mat-card-subtitle class="party-members">Participants: {{party.participants.length}}
+                            /{{party.maxSlots}}</mat-card-subtitle>
                         <mat-card-content>
                             <dl>
                                 <dt>Owner</dt>
@@ -36,26 +44,44 @@
                             </dl>
                         </mat-card-content>
                         <mat-card-actions>
-                            <ng-container *ngIf="isReserved(party); else joinRef">
-                                <button mat-stroked-button
+                            <ng-container *ngIf="isReserved(party); then leaveRef; else joinRef"></ng-container>
+                            <!-- LEAVE BUTTON -->
+                            <ng-template #leaveRef>
+                                <button mat-flat-button
                                         color="primary"
                                         (click)="leave(party)">
-                                    <mat-icon>backspace</mat-icon> Leave
+                                    <mat-icon>backspace</mat-icon>
+                                    Leave
                                 </button>
-                            </ng-container>
+                            </ng-template>
+                            <!-- JOIN BUTTON -->
                             <ng-template #joinRef>
                                 <button
-                                        mat-stroked-button
+                                        mat-flat-button
                                         color="primary"
                                         (click)="join(party)"
                                         [disabled]="party.isFull">
-                                    <mat-icon>add</mat-icon> Join
+                                    <mat-icon>add</mat-icon>
+                                    Join
                                 </button>
                             </ng-template>
-                            <button mat-stroked-button
-                                    color="accent"
-                                    (click)="view(party)"
-                                    [disabled]="party.isFull">Info</button>
+                            <ng-container *ngIf="ownerOfTheParty(party); then updateRef; else viewRef"></ng-container>
+                            <!-- UPDATE BUTTON -->
+                            <ng-template #updateRef>
+                                <button mat-flat-button
+                                        color="accent"
+                                        (click)="update(party)">
+                                    Update
+                                </button>
+                            </ng-template>
+                            <!-- VIEW BUTTON -->
+                            <ng-template #viewRef>
+                                <button mat-flat-button
+                                        color="accent"
+                                        (click)="view(party)">
+                                    Info
+                                </button>
+                            </ng-template>
                         </mat-card-actions>
                     </mat-card>
                 </ng-container>

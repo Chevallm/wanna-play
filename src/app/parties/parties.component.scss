@@ -1,6 +1,20 @@
 .parties {
   padding: 1em;
 
+  &-header {
+    display: flex;
+    column-gap: 20px;
+
+    .create-button {
+      height: 50px;
+    }
+
+    .search {
+      flex: 1;
+      margin: 0;
+    }
+  }
+
   &-list {
     display: flex;
     margin-top: 20px;
@@ -10,6 +24,7 @@
   }
 
   .party {
+
     mat-card-header {
       display: flex;
       justify-content: flex-end;
